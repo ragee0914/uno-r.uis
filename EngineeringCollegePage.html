@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College of Engineering - UNO-Recoletos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            border-bottom: 2px solid #999;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #393939;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-left: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0ad4e;
+        }
+
+        nav a.active {
+            color: #f0ad4e;
+            border-bottom: 2px solid #f0ad4e;
+            padding-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .logout-btn img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .logout-btn:hover {
+            background-color: #e8e8e8;
+        }
+
+        /* College Page Header */
+        .college-page-header {
+            background-color: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #999;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #f0ad4e;
+        }
+
+        .back-arrow {
+            font-size: 1.2rem;
+        }
+
+        .college-page-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .college-page-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #f0ad4e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background-color: white;
+        }
+
+        .college-page-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .college-page-title-text h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #333;
+        }
+
+        .college-page-title-text p {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 0;
+            background-color: #e3f2fd;
+        }
+
+        .news-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 900px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .news-item:first-of-type {
+            margin-top: 3rem;
+        }
+
+        .news-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .news-source {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .news-source-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .news-source-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-source-info h3 {
+            font-size: 0.95rem;
+            color: #333;
+            margin-bottom: 0.2rem;
+        }
+
+        .news-source-info p {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .news-badge {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .news-time {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .news-content p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .news-tag {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .news-tag:hover {
+            text-decoration: underline;
+        }
+
+        .news-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 100%;
+            background-color: #e8e8e8;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .college-page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .news-images {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="Uno-R Logo.png" alt="UNO-Recoletos Logo">
+            </div>
+            <div class="header-title">
+                <h1>UNO-Recoletos</h1>
+                <p>Information Systems - Student</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="NewsPage.html">HOME</a>
+            <a href="CollegesPage.html" class="active">COLLEGES</a>
+            <a href="ProfilePage.html">PROFILE</a>
+            <a href="InquiryPage.html">INQUIRY</a>
+        </nav>
+        <button class="logout-btn">
+            <img src="Logout-Icon.png" alt="Logout Icon">
+            LOGOUT
+        </button>
+    </header>
+
+    <!-- College Page Header -->
+    <div class="college-page-header">
+        <a href="CollegesPage.html" class="back-link">
+            <span class="back-arrow">←</span>
+            <span>Back to Colleges</span>
+        </a>
+        <div class="college-page-title">
+            <div class="college-page-icon">
+                <img src="Engineering-Icon.png" alt="Engineering Icon">
+            </div>
+            <div class="college-page-title-text">
+                <h2>Engineering College Page</h2>
+                <p>CoE • News & Updates</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <!-- News Item 1 -->
+        <div class="news-item">
+            <div class="news-item-header">
+                <div class="news-source">
+                    <div class="news-source-avatar">
+                        <img src="Engineering-Icon.png" alt="CoE Avatar">
+                    </div>
+                    <div class="news-source-info">
+                        <h3>College of Engineering Council</h3>
+                        <p>Official CoE Department</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="news-badge">trending</div>
+                    <span class="news-time">2 hours ago</span>
+                </div>
+            </div>
+
+            <div class="news-content">
+                <p>Congratulations to our Civil Engineering students who won first place in the Regional Engineering Design Competition! Your innovative bridge design impressed the judges.</p>
+                
+                <p>Special thanks to our faculty advisors and the entire CoE community for their support. #EngineeringExcellence #CoEPride</p>
+
+                <div class="news-tags">
+                    <a href="#" class="news-tag">#CoE</a>
+                    <a href="#" class="news-tag">#CivilEngineering</a>
+                    <a href="#" class="news-tag">#EngineeringExcellence</a>
+                </div>
+
+                <div class="news-images">
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3ECoE Event Photo%3C/text%3E%3C/svg%3E" alt="CoE Event Photo 1">
+                    </div>
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3ECoE Event Photo%3C/text%3E%3C/svg%3E" alt="CoE Event Photo 2">
+                    </div>
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3ECoE Event Photo%3C/text%3E%3C/svg%3E" alt="CoE Event Photo 3">
+                    </div>
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3ECoE Event Photo%3C/text%3E%3C/svg%3E" alt="CoE Event Photo 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Item 2 -->
+        <div class="news-item">
+            <div class="news-item-header">
+                <div class="news-source">
+                    <div class="news-source-avatar">
+                        <img src="Engineering-Icon.png" alt="CoE Avatar">
+                    </div>
+                    <div class="news-source-info">
+                        <h3>Mechanical Engineering Department</h3>
+                        <p>CoE Department</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="news-time">1 day ago</span>
+                </div>
+            </div>
+
+            <div class="news-content">
+                <p>Join us for the Mechanical Engineering Workshop Series starting next week! Learn about advanced manufacturing techniques and robotics.</p>
+                
+                <p>Date: December 10-14, 2025 | Time: 2:00 PM - 5:00 PM | Venue: Engineering Laboratory Building</p>
+
+                <div class="news-tags">
+                    <a href="#" class="news-tag">#MechanicalEngineering</a>
+                    <a href="#" class="news-tag">#Workshop</a>
+                    <a href="#" class="news-tag">#CoE</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Item 3 -->
+        <div class="news-item">
+            <div class="news-item-header">
+                <div class="news-source">
+                    <div class="news-source-avatar">
+                        <img src="Engineering-Icon.png" alt="CoE Avatar">
+                    </div>
+                    <div class="news-source-info">
+                        <h3>Electrical Engineering Department</h3>
+                        <p>CoE Department</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="news-badge">featured</div>
+                    <span class="news-time">3 days ago</span>
+                </div>
+            </div>
+
+            <div class="news-content">
+                <p>Our Electrical Engineering students showcased their innovative smart grid project at the National Engineering Conference. Proud of your achievements!</p>
+                
+                <p>The project demonstrates sustainable energy solutions and has received recognition from industry partners.</p>
+
+                <div class="news-tags">
+                    <a href="#" class="news-tag">#ElectricalEngineering</a>
+                    <a href="#" class="news-tag">#Innovation</a>
+                    <a href="#" class="news-tag">#CoE</a>
+                </div>
+
+                <div class="news-images">
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3EProject Photo%3C/text%3E%3C/svg%3E" alt="Project Photo 1">
+                    </div>
+                    <div class="news-image">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150'%3E%3Crect fill='%23ddd' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23999' text-anchor='middle' dy='.3em'%3EProject Photo%3C/text%3E%3C/svg%3E" alt="Project Photo 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

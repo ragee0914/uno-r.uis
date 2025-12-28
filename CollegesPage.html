@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO-Recoletos Information Systems - Student</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            border-bottom: 2px solid #999;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #393939;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-left: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0ad4e;
+        }
+
+        nav a.active {
+            color: #f0ad4e;
+            border-bottom: 2px solid #f0ad4e;
+            padding-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .logout-btn img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .logout-btn:hover {
+            background-color: #e8e8e8;
+        }
+
+        /* Colleges Section */
+        .colleges-section {
+            padding: 0;
+            background-color: #e3f2fd;
+        }
+
+        .colleges-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0;
+            background-color: white;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #999;
+            border-radius: 0;
+        }
+
+        .colleges-icon {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .colleges-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .colleges-header-text h2 {
+            font-size: 1.3rem;
+            color: #333;
+        }
+
+        .colleges-header-text p {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 0.3rem;
+        }
+
+        .colleges-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .college-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .college-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .college-card-background {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .college-card-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .college-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+        }
+
+        .college-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .college-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .college-card-content {
+            padding: 1.5rem;
+        }
+
+        .college-card-content h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+
+        .college-card-content p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .college-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1rem;
+            padding: 0.8rem 0;
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .college-stat {
+            text-align: center;
+        }
+
+        .college-stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            display: block;
+        }
+
+        .college-stat-label {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+
+        .college-programs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .program-tag {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .program-tag:hover {
+            background-color: #e0e0e0;
+        }
+
+        .program-tag.more {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .program-tag.more:hover {
+            background-color: #e09d3e;
+        }
+
+        @media (max-width: 1200px) {
+            .colleges-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .colleges-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="Uno-R Logo.png" alt="UNO-Recoletos Logo">
+            </div>
+            <div class="header-title">
+                <h1>UNO-Recoletos</h1>
+                <p>Information Systems - Student</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="NewsPage.html">HOME</a>
+            <a href="CollegesPage.html" class="active">COLLEGES</a>
+            <a href="ProfilePage.html">PROFILE</a>
+            <a href="InquiryPage.html">INQUIRY</a>
+        </nav>
+        <button class="logout-btn">
+            <img src="Logout-Icon.png" alt="Logout Icon">
+            LOGOUT
+        </button>
+    </header>
+
+    <!-- Colleges Section -->
+    <section class="colleges-section">
+        <div class="colleges-header">
+            <div class="colleges-icon">
+                <img src="Colleges-Icon.png" alt="Colleges Icon">
+            </div>
+            <div class="colleges-header-text">
+                <h2>UNO-R Colleges</h2>
+                <p>Explore our academic colleges and their latest updates</p>
+            </div>
+        </div>
+
+        <div class="colleges-grid">
+            <!-- College of Engineering -->
+            <a href="EngineeringCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Engineering-Bg.png" alt="Engineering Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Engineering-Icon.png" alt="Engineering Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Engineering</h3>
+                    <p>Build the future and shape the world by joining the College of Engineering at UNO-Recoletos!</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">2,840</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">89</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Civil Engineering</span>
+                        <span class="program-tag">Mechanical Engineering</span>
+                        <span class="program-tag">Electrical Engineering</span>
+                        <span class="program-tag more">+3 more</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Information Technology -->
+            <a href="ITCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="IT-Bg.png" alt="IT Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="IT-Icon.png" alt="IT Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Information Technology</h3>
+                    <p>Join the College of Information Technology. In the fast-paced world of IT, you need to be immersed in cutting-edge technologies and gain skills needed to excel.</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">2,431</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">25</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Information Technology</span>
+                        <span class="program-tag">Entertainment and Multimedia Computing</span>
+                        <span class="program-tag more">+2 more</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Criminal Justice Education -->
+            <a href="CriminalJusticeCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Crim-Bg.png" alt="Criminal Justice Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Crim-Icon.png" alt="Criminal Justice Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Criminal Justice Education</h3>
+                    <p>Join the College of Criminal Justice Education at UNO-Recoletos and start your journey to become a leader in law enforcement and criminal justice!</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">3,578</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">79</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Criminology</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Arts & Sciences -->
+            <a href="ArtsScienceCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Art&Science-Bg.png" alt="Arts & Sciences Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Art&Science-Icon.png" alt="Arts & Sciences Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Arts & Sciences</h3>
+                    <p>Nurture your intellectual curiosity and professional growth by joining the college that "makes man more human", College of Arts and Sciences at UNO-Recoletos!</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">2,134</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">67</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Agriculture</span>
+                        <span class="program-tag">Psychology</span>
+                        <span class="program-tag">Social Work</span>
+                        <span class="program-tag more">+1 more</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Allied Medical Health Sciences -->
+            <a href="MedicalHealthCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Med-Bg.png" alt="Medical Health Sciences Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Med-Icon.png" alt="Medical Health Sciences Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Allied Medical Health Sciences</h3>
+                    <p>Explore the diverse and impactful programs at the College of Allied Medical Health Sciences at UNO-Recoletos.</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">2,654</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">64</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Pharmacy</span>
+                        <span class="program-tag">Nursing</span>
+                        <span class="program-tag">Medical Technology</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Business & Accountancy -->
+            <a href="BusinessAccountancyCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Business&Accountancy-Bg.png" alt="Business & Accountancy Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Business&Accountancy-Icon.png" alt="Business & Accountancy Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Business & Accountancy</h3>
+                    <p>Get the skills, knowledge, and real-world experience to excel in the dynamic business world when you join the College of Business and Accountancy at UNO-Recoletos.</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">3,266</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">76</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Hotel Management</span>
+                        <span class="program-tag">Accountancy</span>
+                        <span class="program-tag">Financial Management</span>
+                        <span class="program-tag more">+3 more</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- College of Education -->
+            <a href="EducationCollegePage.html" class="college-card">
+                <div class="college-card-background">
+                    <img src="Education-Bg.png" alt="Education Background">
+                    <div class="college-card-overlay"></div>
+                    <div class="college-logo">
+                        <img src="Education-Icon.png" alt="Education Icon">
+                    </div>
+                </div>
+                <div class="college-card-content">
+                    <h3>College of Education</h3>
+                    <p>Join the College of Education at UNO-Recoletos and become part of the next generation of topnotchers!</p>
+                    <div class="college-stats">
+                        <div class="college-stat">
+                            <span class="college-stat-value">1,543</span>
+                            <span class="college-stat-label">Students</span>
+                        </div>
+                        <div class="college-stat">
+                            <span class="college-stat-value">52</span>
+                            <span class="college-stat-label">Faculty</span>
+                        </div>
+                    </div>
+                    <div class="college-programs">
+                        <span class="program-tag">Elementary Education</span>
+                        <span class="program-tag">Physical Education</span>
+                        <span class="program-tag">Social Studies</span>
+                        <span class="program-tag more">+3 more</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
+

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Inquiry Center - UNO-Recoletos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: #e3f2fd;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            border-bottom: 2px solid #999;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #393939;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-left: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0ad4e;
+        }
+
+        nav a.active {
+            color: #f0ad4e;
+            border-bottom: 2px solid #f0ad4e;
+            padding-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #f5f5f5;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .logout-btn img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .logout-btn:hover {
+            background-color: #e8e8e8;
+        }
+
+        /* Page Title Section */
+        .page-title-section {
+            background-color: hwb(0 100% 0%);
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            outline: 2px solid #999;
+        }
+
+        .page-title-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .page-title-text h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #333;
+        }
+
+        .page-title-text p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        /* Main Content */
+        .inquiry-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        /* Left Column - Contact Information & Quick Tips */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .info-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #333;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-item-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .info-item-content {
+            flex: 1;
+        }
+
+        .info-item-content p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .info-item-content p:first-child {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .tips-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .tips-list li::before {
+            content: counter(list-item);
+            counter-increment: list-item;
+            background-color: #f0ad4e;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .tips-list {
+            counter-reset: list-item;
+        }
+
+        /* Right Column - Inquiry Form */
+        .form-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-header-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .form-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #333;
+        }
+
+        .form-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .form-section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-section-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-section-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .form-section-header h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label .required {
+            color: #e74c3c;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #f0ad4e;
+        }
+
+        .form-input::placeholder,
+        .form-select::placeholder,
+        .form-textarea::placeholder {
+            color: #999;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: auto;
+            margin-top: 1.5rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        .submit-btn-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submit-btn-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1200px) {
+            .inquiry-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inquiry-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <img src="Uno-R Logo.png" alt="UNO-Recoletos Logo">
+            </div>
+            <div class="header-title">
+                <h1>UNO-Recoletos</h1>
+                <p>Information Systems - Student</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="NewsPage.html">HOME</a>
+            <a href="CollegesPage.html">COLLEGES</a>
+            <a href="ProfilePage.html">PROFILE</a>
+            <a href="InquiryPage.html" class="active">INQUIRY</a>
+        </nav>
+        <button class="logout-btn">
+            <img src="Logout-Icon.png" alt="Logout Icon">
+            LOGOUT
+        </button>
+    </header>
+
+    <!-- Page Title Section -->
+    <div class="page-title-section">
+        <div class="page-title-icon">
+            <img src="Colleges-Icon.png" alt="Inquiry Icon">
+        </div>
+        <div class="page-title-text">
+            <h2>Student Inquiry Center</h2>
+            <p>University of Negros Occidental</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="inquiry-content">
+        <!-- Left Column -->
+        <div class="left-column">
+            <!-- Contact Information Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <img src="Phone-Icon.png" alt="Contact Icon">
+                    </div>
+                    <h3>Contact Information</h3>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-icon">
+                        <img src="Gps-Icon.png" alt="Location Icon">
+                    </div>
+                    <div class="info-item-content">
+                        <p>Main Campus</p>
+                        <p>#51 Lizares St, Bacolod, 6100 Negros Occidental</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-icon">
+                        <img src="Phone-Icon.png" alt="Phone Icon">
+                    </div>
+                    <div class="info-item-content">
+                        <p>Phone</p>
+                        <p>(034) 433 2449</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-icon">
+                        <img src="Mail-Icon.png" alt="Email Icon">
+                    </div>
+                    <div class="info-item-content">
+                        <p>Email</p>
+                        <p>info@uno-r.edu.ph</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-item-icon">
+                        <img src="Clock-Icon.png" alt="Clock Icon">
+                    </div>
+                    <div class="info-item-content">
+                        <p>Office Hours</p>
+                        <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                        <p>Saturday: 8:00 AM - 12:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Tips Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <img src="Avatar-Icon.png" alt="Tips Icon">
+                    </div>
+                    <h3>Quick Tips</h3>
+                </div>
+
+                <ol class="tips-list">
+                    <li>Be specific about your inquiry for faster assistance</li>
+                    <li>Include your student ID for academic inquiries</li>
+                    <li>Expected response time is 24-48 hours</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Right Column - Inquiry Form -->
+        <div class="form-card">
+            <div class="form-header">
+                <div class="form-header-icon">
+                    <img src="Avatar-Icon.png" alt="Form Icon">
+                </div>
+                <h3>Submit Your Inquiry</h3>
+            </div>
+            <p class="form-subtitle">Please fill out this form and we'll get back to you as soon as possible.</p>
+
+            <form id="inquiryForm">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon">
+                            <img src="Avatar-Icon.png" alt="Person Icon">
+                        </div>
+                        <h4>Personal Information</h4>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                First Name <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" placeholder="Enter your first name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Last Name <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" placeholder="Enter your last name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Email Address <span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Phone Number <span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" placeholder="+63 XXX XXXX XXXX" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Information Section -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon">
+                            <img src="Colleges-Icon.png" alt="Book Icon">
+                        </div>
+                        <h4>Academic Information</h4>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Student ID</label>
+                            <input type="text" class="form-input" placeholder="XXXX-XXXX">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Program/College</label>
+                            <select class="form-select">
+                                <option value="">Select your program</option>
+                                <option value="engineering">College of Engineering</option>
+                                <option value="it">College of Information Technology</option>
+                                <option value="criminal-justice">College of Criminal Justice Education</option>
+                                <option value="arts-sciences">College of Arts & Sciences</option>
+                                <option value="medical">College of Allied Medical Health Sciences</option>
+                                <option value="business">College of Business & Accountancy</option>
+                                <option value="education">College of Education</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inquiry Details Section -->
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="form-section-icon">
+                            <img src="Colleges-Icon.png" alt="Document Icon">
+                        </div>
+                        <h4>Inquiry Details</h4>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Inquiry Type <span class="required">*</span>
+                            </label>
+                            <select class="form-select" required>
+                                <option value="">Select inquiry type</option>
+                                <option value="academic">Academic</option>
+                                <option value="admission">Admission</option>
+                                <option value="financial">Financial Aid</option>
+                                <option value="registration">Registration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Preferred Contact Method</label>
+                            <select class="form-select">
+                                <option value="">Select your contact method</option>
+                                <option value="email">Email</option>
+                                <option value="phone">Phone</option>
+                                <option value="both">Both</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Subject <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" placeholder="Brief subject of your inquiry" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Message <span class="required">*</span>
+                            </label>
+                            <textarea class="form-textarea" placeholder="Please provide a detailed information about your inquiry...." required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <div class="submit-btn-icon">
+                        <img src="Send-Icon.png" alt="Send Icon">
+                    </div>
+                    Submit Inquiry
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We will get back to you within 24-48 hours.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
+
